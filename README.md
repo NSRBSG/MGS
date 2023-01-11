@@ -13,3 +13,6 @@
 
 - BackEnd : express
 - Database : mysql
+
+- React Structure 및 기본 디자인 완료
+- 자세한 사항은 https://github.com/NSRBSG/blog commit 참조
