@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/NSRBSG/blog/static/js/main.e8eeeab7.js",
-    "static/media/picture.jpg": "/NSRBSG/blog/static/media/picture.22550ed13c22b982d0bd.jpg",
-    "static/media/Profile.png": "/NSRBSG/blog/static/media/Profile.caab5f75519585cfbb8f.png",
-    "index.html": "/NSRBSG/blog/index.html",
-    "main.e8eeeab7.js.map": "/NSRBSG/blog/static/js/main.e8eeeab7.js.map"
+    "main.js": "/blog/static/js/main.19bed03e.js",
+    "static/media/picture.jpg": "/blog/static/media/picture.22550ed13c22b982d0bd.jpg",
+    "static/media/Profile.png": "/blog/static/media/Profile.caab5f75519585cfbb8f.png",
+    "index.html": "/blog/index.html",
+    "main.19bed03e.js.map": "/blog/static/js/main.19bed03e.js.map"
   },
   "entrypoints": [
-    "static/js/main.e8eeeab7.js"
+    "static/js/main.19bed03e.js"
   ]
 }
