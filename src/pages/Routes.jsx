@@ -3,16 +3,19 @@ import Error from './Error';
 import Layout from '../components/layouts/Layout';
 import Home from './Home';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: (
-      <Layout>
-        <Home />
-      </Layout>
-    ),
-    errorElement: <Error />,
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: (
+        <Layout>
+          <Home />
+        </Layout>
+      ),
+      errorElement: <Error />,
+    },
+  ],
+  { basename: '/blog' }
+);
 
 export default router;

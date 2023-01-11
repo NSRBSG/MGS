@@ -16,3 +16,8 @@
 
 - React Structure 및 기본 디자인 완료
 - 자세한 사항은 https://github.com/NSRBSG/blog commit 참조
+
+# 2023.01.11
+
+- Github Pages 배포시 SPA를 적용할 수 있는 방법 미제공 따라서 오류 발생
+- react-rotuer의 HashRouter로 해당 문제 해결
