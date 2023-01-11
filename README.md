@@ -20,4 +20,9 @@
 # 2023.01.11
 
 - Github Pages 배포시 SPA를 적용할 수 있는 방법 미제공 따라서 오류 발생
-- react-rotuer의 HashRouter로 해당 문제 해결
+- 해결 방법
+- react-router의 HashRouter를 사용
+
+- Github Pages 배포시 path에 레포지토리 네임이 붙어 라우팅이 해결되지 않음
+- 해결 방법
+- router에 base-name 설정
