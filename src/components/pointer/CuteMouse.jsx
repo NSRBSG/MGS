@@ -1,13 +1,18 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const Container = styled.div`
+const Container = styled.div.attrs((props) => ({
+  style: {
+    transform: `translate3d(${props.x}px, ${props.y}px, 0px)`,
+  },
+}))`
   position: absolute;
   top: 0;
+  left: 0;
   right: 0;
   bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  width: 10%;
+  height: 10%;
   margin: auto;
 `;
 
@@ -24,6 +29,9 @@ const CuteEllipse = styled.ellipse`
   @keyframes rotation {
     0% {
       stroke-dashoffset: -713;
+    }
+    50% {
+      stroke-dashoffset: 0;
     }
     100% {
       stroke-dashoffset: 713;
@@ -51,22 +59,69 @@ const Rotation3D = styled.g`
   }
 `;
 
+const twoMatrixSubstitution = (a, b) => {
+  return [a[0] - b[0], a[1] - b[1]];
+};
+
+const twoMatrixAddition = (a, b) => {
+  return [a[0] + b[0], a[1] + b[1]];
+};
+
+const oneMatrixMultiplication = (a, index) => {
+  return [a[0] * index, a[1] * index];
+};
+
 const CuteMouse = () => {
+  const [targetXY, setTargetXY] = useState([0, 0]);
+  useEffect(() => {
+    window.addEventListener('mousemove', (e) => {
+      setTargetXY((prev) =>
+        twoMatrixAddition(
+          prev,
+          oneMatrixMultiplication(
+            twoMatrixSubstitution(
+              [
+                e.pageX - window.innerWidth * 0.5,
+                e.pageY - window.innerHeight * 0.5,
+              ],
+              prev
+            ),
+            0.01
+          )
+        )
+      );
+    });
+    window.addEventListener('wheel', (e) => {
+      setTargetXY((prev) =>
+        twoMatrixAddition(
+          prev,
+          oneMatrixMultiplication(
+            twoMatrixSubstitution(
+              [
+                e.pageX - window.innerWidth * 0.5,
+                e.pageY - window.innerHeight * 0.5 + e.deltaY,
+              ],
+              prev
+            ),
+            0.1
+          )
+        )
+      );
+    });
+  }, []);
   return (
-    <Container>
+    <Container x={targetXY[0]} y={targetXY[1]}>
       <svg
         id="Layer_1"
         data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 327 291.84"
-        width="100%"
-        height="100%"
       >
         <defs>
           <radialGradient id="gradient">
             <stop offset="0%" stopColor="black" />
-            <stop offset="50%" stopCOlor="gray" />
-            <stop offset="100%" stopColor='"#00aaff"' />
+            <stop offset="50%" stopColor="black" />
+            <stop offset="100%" stopColor="transparent" />
           </radialGradient>
         </defs>
         <Rotation3D animation="rotationOne">
@@ -76,7 +131,7 @@ const CuteMouse = () => {
             rx="156"
             ry="60"
             fill="transparent"
-            stroke="#00aaff"
+            stroke="black"
             strokeWidth={16}
             opacity="50%"
           />
@@ -96,7 +151,7 @@ const CuteMouse = () => {
             ry="60"
             transform="matrix(.5 -.87 .87 .5 -361.05 286.47)"
             fill="transparent"
-            stroke="#00aaff"
+            stroke="black"
             strokeWidth={16}
             opacity="50%"
           />
@@ -117,7 +172,7 @@ const CuteMouse = () => {
             ry="156"
             transform="rotate(-30 -170.504 676.413)"
             fill="transparent"
-            stroke="#00aaff"
+            stroke="black"
             strokeWidth={16}
             opacity="50%"
           />
@@ -130,7 +185,7 @@ const CuteMouse = () => {
             animationDelay="0.6s"
           />
         </Rotation3D>
-        <circle cx="163.5" cy="145.92" r="31" fill="url(#gradient)" />
+        <circle fill="url(#gradient)" cx="163.5" cy="145.92" r="31" />
       </svg>
     </Container>
   );

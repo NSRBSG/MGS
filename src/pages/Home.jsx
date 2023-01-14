@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import CuteMouse from '../components/pointer/CuteMouse';
 import displayImg from '../lib/assets/images/picture.jpg';
 const Container = styled.div`
   display: flex;
@@ -15,7 +14,6 @@ const Image = styled.img`
 const Home = () => {
   return (
     <Container>
-      <CuteMouse></CuteMouse>
       <Image src={displayImg} />
     </Container>
   );
