@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import displayImg from '../lib/assets/images/picture.jpg';
+
 const Container = styled.div`
+  padding-top: 5rem;
   display: flex;
   flex-direction: column;
 `;

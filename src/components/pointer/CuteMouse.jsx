@@ -7,6 +7,7 @@ const Container = styled.div.attrs((props) => ({
   },
 }))`
   position: absolute;
+  z-index: 9999;
   top: 0;
   left: 0;
   right: 0;
@@ -59,20 +60,21 @@ const Rotation3D = styled.g`
   }
 `;
 
-const twoMatrixSubstitution = (a, b) => {
-  return [a[0] - b[0], a[1] - b[1]];
-};
-
-const twoMatrixAddition = (a, b) => {
-  return [a[0] + b[0], a[1] + b[1]];
-};
-
-const oneMatrixMultiplication = (a, index) => {
-  return [a[0] * index, a[1] * index];
-};
-
 const CuteMouse = () => {
   const [targetXY, setTargetXY] = useState([0, 0]);
+
+  const twoMatrixSubstitution = (a, b) => {
+    return [a[0] - b[0], a[1] - b[1]];
+  };
+
+  const twoMatrixAddition = (a, b) => {
+    return [a[0] + b[0], a[1] + b[1]];
+  };
+
+  const oneMatrixMultiplication = (a, index) => {
+    return [a[0] * index, a[1] * index];
+  };
+
   useEffect(() => {
     window.addEventListener('mousemove', (e) => {
       setTargetXY((prev) =>
@@ -109,6 +111,7 @@ const CuteMouse = () => {
       );
     });
   }, []);
+
   return (
     <Container x={targetXY[0]} y={targetXY[1]}>
       <svg

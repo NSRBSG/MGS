@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Symbol from '../../lib/assets/images/Profile.png';
 
 const Container = styled.header`
+  position: fixed;
   display: flex;
   width: 100%;
   height: 5rem;
@@ -19,7 +20,7 @@ const Content = styled.span`
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  margin: ${(props) => (props.margin ? props.margin : 0)};
+  margin: ${(props) => props.margin};
 `;
 
 const Image = styled.img`
@@ -29,26 +30,30 @@ const Image = styled.img`
 const Header = () => {
   const navigate = useNavigate();
 
-  const onClickHeaderBtn = (event) => {
-    const {
-      target: { id },
-    } = event;
-    switch (id) {
-      case 'logo':
-        navigate('/');
-        break;
-      default:
-        navigate('/');
-    }
-  };
-
   return (
     <Container>
-      <TextBtn onClick={onClickHeaderBtn} id="logo">
-        <Content margin="0.5rem 1rem 0.5rem 1rem" id="logo">
-          <Image height="50rem" src={Symbol} alt="logo" id="logo" />
-          <Text fontSize={1.5} fontWeight="800" id="logo">
+      <TextBtn
+        margin="0.5rem 1rem 0.5rem 1rem"
+        onClick={() => {
+          navigate('/');
+        }}
+      >
+        <Content>
+          <Image height="50rem" src={Symbol} alt="logo" />
+          <Text fontFamily="en" fontSize={1.5} fontWeight="800">
             NSRBSG
+          </Text>
+        </Content>
+      </TextBtn>
+      <TextBtn
+        margin="0 1rem 0 auto"
+        onClick={() => {
+          navigate('/story');
+        }}
+      >
+        <Content>
+          <Text fontFamily="en" fontWeight="800">
+            STORY
           </Text>
         </Content>
       </TextBtn>
