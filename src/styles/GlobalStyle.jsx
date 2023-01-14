@@ -1,30 +1,65 @@
 import { createGlobalStyle } from 'styled-components';
 
+import NanumGothicRegularWOFF2 from '../lib/assets/fonts/Nanum_Gothic/NanumGothic-Regular.woff2';
+import NanumGothicRegularWOFF from '../lib/assets/fonts/Nanum_Gothic/NanumGothic-Regular.woff';
+import NanumGothicRegularTTF from '../lib/assets/fonts/Nanum_Gothic/NanumGothic-Regular.ttf';
+
+import NanumGothicBoldWOFF2 from '../lib/assets/fonts/Nanum_Gothic/NanumGothic-Bold.woff2';
+import NanumGothicBoldWOFF from '../lib/assets/fonts/Nanum_Gothic/NanumGothic-Bold.woff';
+import NanumGothicBoldTTF from '../lib/assets/fonts/Nanum_Gothic/NanumGothic-Bold.ttf';
+
+import NanumGothicExtraBoldWOFF2 from '../lib/assets/fonts/Nanum_Gothic/NanumGothic-ExtraBold.woff2';
+import NanumGothicExtraBoldWOFF from '../lib/assets/fonts/Nanum_Gothic/NanumGothic-ExtraBold.woff';
+import NanumGothicExtraBoldTTF from '../lib/assets/fonts/Nanum_Gothic/NanumGothic-ExtraBold.ttf';
+
+import NanumGothicCodingRegularWOFF2 from '../lib/assets/fonts/Nanum_Gothic_Coding/NanumGothicCoding-Regular.woff2';
+import NanumGothicCodingRegularWOFF from '../lib/assets/fonts/Nanum_Gothic_Coding/NanumGothicCoding-Regular.woff';
+import NanumGothicCodingRegularTTF from '../lib/assets/fonts/Nanum_Gothic_Coding/NanumGothicCoding-Regular.ttf';
+
+import NanumGothicCodingBoldWOFF2 from '../lib/assets/fonts/Nanum_Gothic_Coding/NanumGothicCoding-Bold.woff2';
+import NanumGothicCodingBoldWOFF from '../lib/assets/fonts/Nanum_Gothic_Coding/NanumGothicCoding-Bold.woff';
+import NanumGothicCodingBoldTTF from '../lib/assets/fonts/Nanum_Gothic_Coding/NanumGothicCoding-Bold.ttf';
+
 const GlobalStyle = createGlobalStyle`
 	@font-face {
 		font-family: "NanumGothic";
 		font-weight: 400;
-		src: url("../lib/assets/fonts/Nanum_Gothic/NanumGothic-Regular.ttf");
+		src:
+		url(${NanumGothicRegularWOFF2}) format('woff2'),
+		url(${NanumGothicRegularWOFF}) format('woff'),
+		url(${NanumGothicRegularTTF}) format('truetype'); 
 	}
 	@font-face {
 		font-family: "NanumGothic";
 		font-weight: 700;
-		src: url("../lib/assets/fonts/Nanum_Gothic/NanumGothic-Bold.ttf");
+		src:
+		url(${NanumGothicBoldWOFF2}) format('woff2'),
+		url(${NanumGothicBoldWOFF}) format('woff'),
+		url(${NanumGothicBoldTTF}) format('truetype'); 
 	}
 	@font-face {
 		font-family: "NanumGothic";
 		font-weight: 800;
-		src: url("../lib/assets/fonts/Nanum_Gothic/NanumGothic-ExtraBold.ttf");
+		src:
+		url(${NanumGothicExtraBoldWOFF2}) format('woff2'),
+		url(${NanumGothicExtraBoldWOFF}) format('woff'),
+		url(${NanumGothicExtraBoldTTF}) format('truetype'); 
 	}
 	@font-face {
 		font-family: "NanumGothicCoding";
 		font-weight: 400;
-		src: url("../lib/assets/fonts/Nanum_Gothic_Coding/NanumGothicCoding-Regular.ttf");
+		src:
+		url(${NanumGothicCodingRegularWOFF2}) format('woff2'),
+		url(${NanumGothicCodingRegularWOFF}) format('woff'),
+		url(${NanumGothicCodingRegularTTF}) format('truetype');
 	}
 	@font-face {
 		font-family: "NanumGothicCoding";
 		font-weight: 700;
-		src: url("../lib/assets/fonts/Nanum_Gothic_Coding/NanumGothicCoding-Bold.ttf");
+		src:
+		url(${NanumGothicCodingBoldWOFF2}) format('woff2'),
+		url(${NanumGothicCodingBoldWOFF}) format('woff'),
+		url(${NanumGothicCodingBoldTTF}) format('truetype');
 	}
 	* {
 		box-sizing: border-box;
