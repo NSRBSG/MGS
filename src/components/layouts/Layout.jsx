@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Header from '../menu/Header';
+import Header from './Header';
 import Footer from './Footer';
 
 import PropTypes from 'prop-types';

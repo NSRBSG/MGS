@@ -58,13 +58,15 @@ const AnimationText = styled.span.attrs((props) => ({
   text-align: center;
   font-size: 2rem;
   font-weight: bolder;
+  color: white;
   @media (min-width: 1024px) {
     top: calc(50% - 5rem);
     font-size: 7vw;
   }
 `;
 
-const Image = styled.img`
+const AnimationImage = styled.img`
+  position: fixed;
   width: 100%;
   height: calc(100vh - 5rem);
   object-fit: cover;
@@ -78,6 +80,7 @@ const Home = () => {
   const [currentPercent, setCurrentPercent] = useState(
     (window.scrollY % sectionHeight) / sectionHeight
   );
+  const [bannerFrames, setBannerFrames] = useState([]);
 
   useEffect(() => {
     const resizeSectionHeight = () => {
@@ -87,6 +90,19 @@ const Home = () => {
       setCurrentSection(Math.floor(window.scrollY / sectionHeight));
       setCurrentPercent((window.scrollY % sectionHeight) / sectionHeight);
     };
+    const loadImages = (folderName, frameCount) => {
+      const images = [];
+      for (let i = 1; i <= frameCount; i++) {
+        const image = new Image();
+        image.src = require(`../lib/assets/videos/${folderName}/${i
+          .toString()
+          .padStart(5, '0')}.jpg`);
+        images.push(image);
+      }
+      setBannerFrames(images);
+    };
+
+    !bannerFrames.length && loadImages('frames_home_banner', 1201);
 
     window.addEventListener('resize', resizeSectionHeight);
     window.addEventListener('scroll', changeCurrentSection);
@@ -104,6 +120,10 @@ const Home = () => {
         currentSection={currentSection}
         height={sectionHeight}
       >
+        <AnimationImage
+          alt="banner"
+          src={bannerFrames[Math.round(1200 * currentPercent)]?.src}
+        />
         <Text>hi</Text>
         <AnimationText
           fadeIn={{ startAt: 0.2, endAt: 0.3 }}
@@ -139,7 +159,7 @@ const Home = () => {
         currentSection={currentSection}
         height={sectionHeight}
       >
-        <Image src={displayImg} />
+        <AnimationImage src={displayImg} />
       </Section>
     </Container>
   );
