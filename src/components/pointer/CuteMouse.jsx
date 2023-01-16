@@ -88,7 +88,7 @@ const CuteMouse = () => {
               ],
               prev
             ),
-            0.01
+            0.05
           )
         )
       );
