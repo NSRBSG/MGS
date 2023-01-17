@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Text from '../components/typography/Text';
-import displayImg from '../lib/assets/images/picture.jpg';
 
 const Container = styled.div`
   padding-top: 5rem;
@@ -10,7 +8,6 @@ const Container = styled.div`
 `;
 
 const Section = styled.section`
-  border: 2px solid red;
   height: ${(props) => props.height}px;
   visibility: ${(props) =>
     props.section === props.currentSection ? 'visible' : 'hidden'};
@@ -58,6 +55,7 @@ const AnimationText = styled.span.attrs((props) => ({
   text-align: center;
   font-size: 2rem;
   font-weight: bolder;
+  font-family: NanumGothic;
   color: white;
   @media (min-width: 1024px) {
     top: calc(50% - 5rem);
@@ -65,7 +63,7 @@ const AnimationText = styled.span.attrs((props) => ({
   }
 `;
 
-const AnimationImage = styled.img`
+const AnimationImage = styled.canvas`
   position: fixed;
   width: 100%;
   height: calc(100vh - 5rem);
@@ -82,25 +80,47 @@ const Home = () => {
   );
   const [inkVideo, setInkVideo] = useState([]);
 
+  const canvasRef = useRef(null);
+
+  canvasRef.current
+    ?.getContext('2d')
+    .drawImage(inkVideo[Math.round(301 * currentPercent)], 0, 0);
+
   useEffect(() => {
     const resizeSectionHeight = () => {
       setSectionHeight(window.innerHeight * 5);
     };
+
     const changeCurrentSection = () => {
-      setCurrentSection(Math.floor(window.scrollY / sectionHeight));
-      setCurrentPercent((window.scrollY % sectionHeight) / sectionHeight);
+      const currentSectionHeight = window.innerHeight * 5;
+
+      setCurrentSection(Math.floor(window.scrollY / currentSectionHeight));
+      setCurrentPercent(
+        (window.scrollY % currentSectionHeight) / currentSectionHeight
+      );
     };
-    const loadInkImages = (frameCount) => {
+
+    const loadImages = () => {
       const images = [];
-      for (let i = 1; i <= frameCount; i++) {
+      const progress =
+        Math.round(
+          (301 * (window.scrollY % (window.innerHeight * 5))) /
+            (window.innerHeight * 5)
+        ) + 1;
+
+      for (let i = 1; i <= 302; i++) {
         const image = new Image();
         image.src = require(`../lib/assets/videos/inkVideo/${i}.jpg`);
+        if (i === progress)
+          image.onload = () => {
+            canvasRef.current?.getContext('2d').drawImage(image, 0, 0);
+          };
         images.push(image);
       }
       setInkVideo(images);
     };
 
-    !inkVideo.length && loadInkImages(302);
+    loadImages();
 
     window.addEventListener('resize', resizeSectionHeight);
     window.addEventListener('scroll', changeCurrentSection);
@@ -109,8 +129,7 @@ const Home = () => {
       window.removeEventListener('resize', resizeSectionHeight);
       window.removeEventListener('scroll', changeCurrentSection);
     };
-  });
-
+  }, []);
   return (
     <Container>
       <Section
@@ -118,11 +137,9 @@ const Home = () => {
         currentSection={currentSection}
         height={sectionHeight}
       >
-        <AnimationImage
-          alt="ink"
-          src={inkVideo[Math.round(302 * currentPercent)]?.src}
-        />
-        <Text>hi</Text>
+        <AnimationImage ref={canvasRef} width="3840" height="2160">
+          현재 웹 브라우저를 지원하지 않습니다.
+        </AnimationImage>
         <AnimationText
           fadeIn={{ startAt: 0.2, endAt: 0.3 }}
           fadeOut={{ startAt: 0.35, endAt: 0.4 }}
@@ -144,20 +161,6 @@ const Home = () => {
         >
           끼얏호!
         </AnimationText>
-      </Section>
-      <Section
-        section={1}
-        currentSection={currentSection}
-        height={sectionHeight}
-      >
-        <Text>hello</Text>
-      </Section>
-      <Section
-        section={2}
-        currentSection={currentSection}
-        height={sectionHeight}
-      >
-        <AnimationImage src={displayImg} />
       </Section>
     </Container>
   );
