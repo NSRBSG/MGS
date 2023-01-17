@@ -80,7 +80,7 @@ const Home = () => {
   const [currentPercent, setCurrentPercent] = useState(
     (window.scrollY % sectionHeight) / sectionHeight
   );
-  const [bannerFrames, setBannerFrames] = useState([]);
+  const [inkVideo, setInkVideo] = useState([]);
 
   useEffect(() => {
     const resizeSectionHeight = () => {
@@ -90,19 +90,17 @@ const Home = () => {
       setCurrentSection(Math.floor(window.scrollY / sectionHeight));
       setCurrentPercent((window.scrollY % sectionHeight) / sectionHeight);
     };
-    const loadImages = (folderName, frameCount) => {
+    const loadInkImages = (frameCount) => {
       const images = [];
       for (let i = 1; i <= frameCount; i++) {
         const image = new Image();
-        image.src = require(`../lib/assets/videos/${folderName}/${i
-          .toString()
-          .padStart(5, '0')}.jpg`);
+        image.src = require(`../lib/assets/videos/inkVideo/${i}.jpg`);
         images.push(image);
       }
-      setBannerFrames(images);
+      setInkVideo(images);
     };
 
-    !bannerFrames.length && loadImages('frames_home_banner', 1201);
+    !inkVideo.length && loadInkImages(302);
 
     window.addEventListener('resize', resizeSectionHeight);
     window.addEventListener('scroll', changeCurrentSection);
@@ -121,8 +119,8 @@ const Home = () => {
         height={sectionHeight}
       >
         <AnimationImage
-          alt="banner"
-          src={bannerFrames[Math.round(1200 * currentPercent)]?.src}
+          alt="ink"
+          src={inkVideo[Math.round(302 * currentPercent)]?.src}
         />
         <Text>hi</Text>
         <AnimationText
