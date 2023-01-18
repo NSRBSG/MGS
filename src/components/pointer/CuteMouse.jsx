@@ -6,14 +6,14 @@ const Container = styled.div.attrs((props) => ({
     transform: `translate3d(${props.x}px, ${props.y}px, 0px)`,
   },
 }))`
-  position: absolute;
+  position: fixed;
   z-index: 9999;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  width: 10%;
-  height: 10%;
+  width: 5%;
+  height: 5%;
   margin: auto;
 `;
 
@@ -77,14 +77,15 @@ const CuteMouse = () => {
 
   useEffect(() => {
     window.addEventListener('mousemove', (e) => {
+      console.log(e);
       setTargetXY((prev) =>
         twoMatrixAddition(
           prev,
           oneMatrixMultiplication(
             twoMatrixSubstitution(
               [
-                e.pageX - window.innerWidth * 0.5,
-                e.pageY - window.innerHeight * 0.5,
+                e.clientX - window.innerWidth * 0.5,
+                e.clientY - window.innerHeight * 0.5,
               ],
               prev
             ),
@@ -100,8 +101,8 @@ const CuteMouse = () => {
           oneMatrixMultiplication(
             twoMatrixSubstitution(
               [
-                e.pageX - window.innerWidth * 0.5,
-                e.pageY - window.innerHeight * 0.5 + e.deltaY,
+                e.clientX - window.innerWidth * 0.5,
+                e.clientY - window.innerHeight * 0.5,
               ],
               prev
             ),
