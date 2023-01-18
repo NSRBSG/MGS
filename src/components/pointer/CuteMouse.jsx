@@ -77,7 +77,6 @@ const CuteMouse = () => {
 
   useEffect(() => {
     window.addEventListener('mousemove', (e) => {
-      console.log(e);
       setTargetXY((prev) =>
         twoMatrixAddition(
           prev,
