@@ -178,7 +178,7 @@ const Home = () => {
                 : inkVideoShowingProgress
             }
           >
-            <AnimationImage ref={inkVideoRef} width="3840" height="2160">
+            <AnimationImage ref={inkVideoRef} width="1920" height="1080">
               현재 웹 브라우저를 지원하지 않습니다.
             </AnimationImage>
             <AnimationText
