@@ -1,5 +1,5 @@
 import { RouterProvider } from 'react-router-dom';
-import CuteMouse from './components/pointer/CuteMouse';
+import CuteMouse from './components/mouse/CuteMouse';
 import router from './pages/Routes';
 import GlobalStyle from './styles/GlobalStyle';
 
