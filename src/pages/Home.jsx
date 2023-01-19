@@ -70,13 +70,17 @@ const AnimationImage = styled.canvas`
   object-fit: cover;
 `;
 
-const ScrollContainer = styled.div.attrs((props) => ({
+const ScrollContainer = styled.div`
+  height: ${(props) => props.height}vh;
+`;
+
+const ScrollStickyContent = styled.div.attrs((props) => ({
   style: {
     opacity: props.currentPercent,
   },
 }))`
   position: relative;
-  height: ${(props) => props.height}vh;
+  height: calc(100% + 100vh);
 `;
 
 const Banner = styled.h1`
@@ -104,35 +108,47 @@ const Home = () => {
 
   inkVideoRef.current
     ?.getContext('2d')
-    .drawImage(inkVideo[Math.round(301 * inkVideoCurrentProgress)], 0, 0);
+    .drawImage(
+      inkVideo[
+        Math.round(
+          301 *
+            (inkVideoCurrentProgress * 1.25 > 1
+              ? 1
+              : inkVideoCurrentProgress * 1.25)
+        )
+      ],
+      0,
+      0
+    );
 
   useEffect(() => {
     const onScrollEvent = () => {
       setInkVideoCurrentProgress(
         inkVideoRef.current.offsetTop /
-          Math.round(window.innerHeight * (ScrollContainerHeight[0] - 1))
+          Math.round(window.innerHeight * ScrollContainerHeight[0])
       );
 
-      const y =
-        inkVideoRef.current.getBoundingClientRect().y >= 0
-          ? inkVideoRef.current.getBoundingClientRect().y
-          : -inkVideoRef.current.getBoundingClientRect().y;
+      const y = inkVideoRef.current.getBoundingClientRect().y;
       const offset = window.innerHeight / 1.5;
-      if (y <= offset) setInkVideoShowingProgress(1 - y / offset);
+      if (y <= offset && y >= 0) setInkVideoShowingProgress(1 - y / offset);
     };
 
     const loadImages = () => {
       const images = [];
-      const progress =
+
+      const currentProgress =
+        inkVideoRef.current.offsetTop /
+        Math.round(window.innerHeight * ScrollContainerHeight[0]);
+
+      const inputImage =
         Math.round(
-          (301 * inkVideoRef.current.offsetTop) /
-            Math.round(window.innerHeight * (ScrollContainerHeight[0] - 1))
+          301 * (currentProgress * 1.25 > 1 ? 1 : currentProgress * 1.25)
         ) + 1;
 
       for (let i = 1; i <= 302; i++) {
         const image = new Image();
         image.src = require(`../lib/assets/videos/inkVideo/${i}.jpg`);
-        if (i === progress)
+        if (i === inputImage)
           image.onload = () => {
             inkVideoRef.current?.getContext('2d').drawImage(image, 0, 0);
           };
@@ -154,45 +170,50 @@ const Home = () => {
     <Container>
       <Section>
         <Banner>NSRBSG</Banner>
-        <ScrollContainer
-          height={ScrollContainerHeight[0] * 100}
-          currentPercent={inkVideoShowingProgress}
-        >
-          <AnimationImage ref={inkVideoRef} width="3840" height="2160">
-            현재 웹 브라우저를 지원하지 않습니다.
-          </AnimationImage>
-          <AnimationText
-            fadeIn={{ startAt: 0.0, endAt: 0.1 }}
-            fadeOut={{ startAt: 0.15, endAt: 0.2 }}
-            currentPercent={inkVideoCurrentProgress}
+        <ScrollContainer height={ScrollContainerHeight[0] * 100}>
+          <ScrollStickyContent
+            currentPercent={
+              inkVideoCurrentProgress >= 0.8
+                ? 1 - (inkVideoCurrentProgress - 0.8) * 5
+                : inkVideoShowingProgress
+            }
           >
-            완전히 새로워진 모각소
-          </AnimationText>
-          <AnimationText
-            fadeIn={{ startAt: 0.2, endAt: 0.3 }}
-            fadeOut={{ startAt: 0.35, endAt: 0.4 }}
-            currentPercent={inkVideoCurrentProgress}
-          >
-            그 누구도 생각지 못한
-            <br />
-            아름다움
-          </AnimationText>
-          <AnimationText
-            fadeIn={{ startAt: 0.4, endAt: 0.5 }}
-            fadeOut={{ startAt: 0.55, endAt: 0.6 }}
-            currentPercent={inkVideoCurrentProgress}
-          >
-            열정으로 가득찬 이곳
-          </AnimationText>
-          <AnimationText
-            fadeIn={{ startAt: 0.6, endAt: 0.7 }}
-            fadeOut={{ startAt: 0.75, endAt: 0.8 }}
-            currentPercent={inkVideoCurrentProgress}
-          >
-            아주대학교에서
-            <br />
-            절찬리 진행중
-          </AnimationText>
+            <AnimationImage ref={inkVideoRef} width="3840" height="2160">
+              현재 웹 브라우저를 지원하지 않습니다.
+            </AnimationImage>
+            <AnimationText
+              fadeIn={{ startAt: 0.0, endAt: 0.1 }}
+              fadeOut={{ startAt: 0.15, endAt: 0.2 }}
+              currentPercent={inkVideoCurrentProgress}
+            >
+              완전히 새로워진 모각소
+            </AnimationText>
+            <AnimationText
+              fadeIn={{ startAt: 0.2, endAt: 0.3 }}
+              fadeOut={{ startAt: 0.35, endAt: 0.4 }}
+              currentPercent={inkVideoCurrentProgress}
+            >
+              그 누구도 생각지 못한
+              <br />
+              아름다움
+            </AnimationText>
+            <AnimationText
+              fadeIn={{ startAt: 0.4, endAt: 0.5 }}
+              fadeOut={{ startAt: 0.55, endAt: 0.6 }}
+              currentPercent={inkVideoCurrentProgress}
+            >
+              열정으로 가득찬 이곳
+            </AnimationText>
+            <AnimationText
+              fadeIn={{ startAt: 0.6, endAt: 0.7 }}
+              fadeOut={{ startAt: 0.75, endAt: 0.8 }}
+              currentPercent={inkVideoCurrentProgress}
+            >
+              아주대학교에서
+              <br />
+              절찬리 진행중
+            </AnimationText>
+          </ScrollStickyContent>
         </ScrollContainer>
       </Section>
       <Section>
