@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Component = styled.span`
+const Component = styled.p`
   color: ${(props) => props.color};
   font-weight: ${(props) => props.fontWeight};
   font-family: ${(props) =>

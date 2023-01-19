@@ -72,14 +72,7 @@ const AnimationImage = styled.canvas`
 
 const ScrollContainer = styled.div.attrs((props) => ({
   style: {
-    opacity:
-      props.currentPercent > 0 && props.currentPercent < 1
-        ? props.currentPercent <= 0.2
-          ? props.currentPercent * 5
-          : props.currentPercent >= 0.8
-          ? 1 - (props.currentPercent - 0.8) * 5
-          : 1
-        : 0,
+    opacity: props.currentPercent,
   },
 }))`
   position: relative;
@@ -95,7 +88,7 @@ const Banner = styled.h1`
   font-size: 2rem;
   font-weight: 800;
   font-family: NanumGothicCoding;
-  color: black;
+  color: white;
 
   @media (min-width: 1024px) {
     font-size: 7vw;
@@ -105,10 +98,9 @@ const Banner = styled.h1`
 const Home = () => {
   const ScrollContainerHeight = [5];
   const [inkVideoCurrentProgress, setInkVideoCurrentProgress] = useState(0);
+  const [inkVideoShowingProgress, setInkVideoShowingProgress] = useState(0);
   const [inkVideo, setInkVideo] = useState([]);
   const inkVideoRef = useRef(null);
-
-  //getBoundingClientRect()
 
   inkVideoRef.current
     ?.getContext('2d')
@@ -120,6 +112,13 @@ const Home = () => {
         inkVideoRef.current.offsetTop /
           Math.round(window.innerHeight * (ScrollContainerHeight[0] - 1))
       );
+
+      const y =
+        inkVideoRef.current.getBoundingClientRect().y >= 0
+          ? inkVideoRef.current.getBoundingClientRect().y
+          : -inkVideoRef.current.getBoundingClientRect().y;
+      const offset = window.innerHeight / 1.5;
+      if (y <= offset) setInkVideoShowingProgress(1 - y / offset);
     };
 
     const loadImages = () => {
@@ -157,33 +156,47 @@ const Home = () => {
         <Banner>NSRBSG</Banner>
         <ScrollContainer
           height={ScrollContainerHeight[0] * 100}
-          currentPercent={inkVideoCurrentProgress}
+          currentPercent={inkVideoShowingProgress}
         >
           <AnimationImage ref={inkVideoRef} width="3840" height="2160">
             현재 웹 브라우저를 지원하지 않습니다.
           </AnimationImage>
           <AnimationText
+            fadeIn={{ startAt: 0.0, endAt: 0.1 }}
+            fadeOut={{ startAt: 0.15, endAt: 0.2 }}
+            currentPercent={inkVideoCurrentProgress}
+          >
+            완전히 새로워진 모각소
+          </AnimationText>
+          <AnimationText
             fadeIn={{ startAt: 0.2, endAt: 0.3 }}
             fadeOut={{ startAt: 0.35, endAt: 0.4 }}
             currentPercent={inkVideoCurrentProgress}
           >
-            모각소
+            그 누구도 생각지 못한
+            <br />
+            아름다움
           </AnimationText>
           <AnimationText
             fadeIn={{ startAt: 0.4, endAt: 0.5 }}
             fadeOut={{ startAt: 0.55, endAt: 0.6 }}
             currentPercent={inkVideoCurrentProgress}
           >
-            화이팅!
+            열정으로 가득찬 이곳
           </AnimationText>
           <AnimationText
             fadeIn={{ startAt: 0.6, endAt: 0.7 }}
             fadeOut={{ startAt: 0.75, endAt: 0.8 }}
             currentPercent={inkVideoCurrentProgress}
           >
-            끼얏호!
+            아주대학교에서
+            <br />
+            절찬리 진행중
           </AnimationText>
         </ScrollContainer>
+      </Section>
+      <Section>
+        <Banner>다음은 뭐하지</Banner>
       </Section>
     </Container>
   );

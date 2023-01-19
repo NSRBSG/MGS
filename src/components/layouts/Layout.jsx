@@ -5,6 +5,7 @@ import Footer from './Footer';
 import PropTypes from 'prop-types';
 
 const Container = styled.div`
+  background-color: black;
   width: 100%;
 `;
 
