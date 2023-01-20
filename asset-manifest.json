@@ -1,11 +1,12 @@
 {
   "files": {
-    "main.js": "/blog/static/js/main.a85df87e.js",
+    "main.js": "/blog/static/js/main.96259f2d.js",
     "static/media/NanumGothic-Regular.ttf": "/blog/static/media/NanumGothic-Regular.6c84540de7730f833d6c.ttf",
     "static/media/NanumGothic-Bold.ttf": "/blog/static/media/NanumGothic-Bold.6499af72b1d61fe8269d.ttf",
     "static/media/NanumGothic-ExtraBold.ttf": "/blog/static/media/NanumGothic-ExtraBold.d574713406e9230ba246.ttf",
     "static/media/NanumGothicCoding-Regular.ttf": "/blog/static/media/NanumGothicCoding-Regular.9fd9323b064549a4f804.ttf",
     "static/media/NanumGothicCoding-Bold.ttf": "/blog/static/media/NanumGothicCoding-Bold.547bf7903b7143c1d63b.ttf",
+    "static/media/background.jpg": "/blog/static/media/background.71a96e88470bbed627e5.jpg",
     "static/media/218.jpg": "/blog/static/media/218.8bc2080ef66fc6824be9.jpg",
     "static/media/215.jpg": "/blog/static/media/215.519f6ef32c49ae4d1d77.jpg",
     "static/media/208.jpg": "/blog/static/media/208.261f1f3d8425281aace7.jpg",
@@ -311,6 +312,7 @@
     "static/media/Profile.png": "/blog/static/media/Profile.caab5f75519585cfbb8f.png",
     "static/media/NanumGothic-ExtraBold.woff": "/blog/static/media/NanumGothic-ExtraBold.a68b7c91c5a4452e8656.woff",
     "static/media/NanumGothic-Bold.woff": "/blog/static/media/NanumGothic-Bold.d44fc1144c44bd7eba12.woff",
+    "static/media/laptop.jpg": "/blog/static/media/laptop.901077e01144ffe264b3.jpg",
     "static/media/NanumGothic-Regular.woff": "/blog/static/media/NanumGothic-Regular.7100b7e0118e4c49d53f.woff",
     "static/media/NanumGothic-ExtraBold.woff2": "/blog/static/media/NanumGothic-ExtraBold.4b2c390ad19997a01895.woff2",
     "static/media/NanumGothic-Bold.woff2": "/blog/static/media/NanumGothic-Bold.d0bbe1e6bc9a585ca821.woff2",
@@ -320,9 +322,9 @@
     "static/media/NanumGothicCoding-Regular.woff2": "/blog/static/media/NanumGothicCoding-Regular.374f550548bed0bd9de9.woff2",
     "static/media/NanumGothicCoding-Bold.woff2": "/blog/static/media/NanumGothicCoding-Bold.2d477e041afe300675a5.woff2",
     "index.html": "/blog/index.html",
-    "main.a85df87e.js.map": "/blog/static/js/main.a85df87e.js.map"
+    "main.96259f2d.js.map": "/blog/static/js/main.96259f2d.js.map"
   },
   "entrypoints": [
-    "static/js/main.a85df87e.js"
+    "static/js/main.96259f2d.js"
   ]
 }
