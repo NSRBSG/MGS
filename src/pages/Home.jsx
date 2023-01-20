@@ -19,7 +19,7 @@ const ScrollContainer = styled.div`
 
 const ScrollStickyContainer = styled.div.attrs((props) => ({
   style: {
-    opacity: props.currentPercent,
+    opacity: props.currentProgress,
   },
 }))`
   position: relative;
@@ -43,38 +43,38 @@ const ScrollLockupContainer = styled.div`
 const AnimationBox = styled.div.attrs((props) => ({
   style: {
     transform: `translateY(${
-      props.currentPercent >= props.fadeIn.startAt &&
-      props.currentPercent <= props.fadeOut.endAt
-        ? props.currentPercent >= props.fadeIn.startAt &&
-          props.currentPercent <= props.fadeIn.endAt
+      props.currentProgress >= props.fadeIn.startAt
+        ? props.currentProgress <= props.fadeIn.endAt
           ? (1 -
-              (props.currentPercent - props.fadeIn.startAt) /
+              (props.currentProgress - props.fadeIn.startAt) /
                 (props.fadeIn.endAt - props.fadeIn.startAt)) *
-            20
-          : props.currentPercent >= props.fadeOut.startAt &&
-            props.currentPercent <= props.fadeOut.endAt
-          ? (-(props.currentPercent - props.fadeOut.startAt) /
-              (props.fadeOut.endAt - props.fadeOut.startAt)) *
-            20
+            10
+          : props.currentProgress >= props.fadeOut.startAt
+          ? props.currentProgress <= props.fadeOut.endAt
+            ? (-(props.currentProgress - props.fadeOut.startAt) /
+                (props.fadeOut.endAt - props.fadeOut.startAt)) *
+              10
+            : -10
           : 0
-        : -20
+        : 10
     }%)`,
     opacity:
-      props.currentPercent >= props.fadeIn.startAt &&
-      props.currentPercent <= props.fadeOut.endAt
-        ? props.currentPercent >= props.fadeIn.startAt &&
-          props.currentPercent <= props.fadeIn.endAt
-          ? (props.currentPercent - props.fadeIn.startAt) /
+      props.currentProgress >= props.fadeIn.startAt
+        ? props.currentProgress <= props.fadeIn.endAt
+          ? (props.currentProgress - props.fadeIn.startAt) /
             (props.fadeIn.endAt - props.fadeIn.startAt)
-          : props.currentPercent >= props.fadeOut.startAt &&
-            props.currentPercent <= props.fadeOut.endAt
-          ? 1 -
-            (props.currentPercent - props.fadeOut.startAt) /
-              (props.fadeOut.endAt - props.fadeOut.startAt)
+          : props.currentProgress >= props.fadeOut.startAt
+          ? props.currentProgress <= props.fadeOut.endAt
+            ? 1 -
+              (props.currentProgress - props.fadeOut.startAt) /
+                (props.fadeOut.endAt - props.fadeOut.startAt)
+            : 0
           : 1
         : 0,
   },
 }))`
+  position: absolute;
+  top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,15 +83,14 @@ const AnimationBox = styled.div.attrs((props) => ({
 `;
 
 const AnimationImage = styled.canvas`
+  position: absolute;
+  top: 0;
   width: 100%;
   height: 100vh;
   object-fit: cover;
 `;
 
 const AnimationText = styled.p`
-  z-index: 1;
-  height: 100vh;
-  width: 100%;
   text-align: center;
   font-size: 2rem;
   font-weight: 800;
@@ -146,12 +145,17 @@ const Home = () => {
     const onScrollEvent = () => {
       setInkVideoCurrentProgress(
         stickyContentRef.current.offsetTop /
-          Math.round(window.innerHeight * ScrollContainerHeight[0])
+          (window.innerHeight * ScrollContainerHeight[0])
       );
 
       const { y } = inkVideoRef.current.getBoundingClientRect();
-      const offset = window.innerHeight * 0.8;
-      if (y <= offset && y >= 0) setInkVideoShowingProgress(1 - y / offset);
+      const offset = Math.round(window.innerHeight * 0.8);
+
+      if (y >= 0 && y <= offset) {
+        setInkVideoShowingProgress(1 - y / offset);
+      } else {
+        setInkVideoShowingProgress(0);
+      }
     };
 
     const loadInkImages = () => {
@@ -193,9 +197,9 @@ const Home = () => {
         <BannerText>NSRBSG</BannerText>
         <ScrollContainer height={ScrollContainerHeight[0] * 100}>
           <ScrollStickyContainer
-            currentPercent={
+            currentProgress={
               inkVideoCurrentProgress >= 0.8
-                ? 1 - (inkVideoCurrentProgress - 0.8) * 5
+                ? -5 * (inkVideoCurrentProgress - 1)
                 : inkVideoShowingProgress
             }
           >
@@ -207,7 +211,7 @@ const Home = () => {
                 <AnimationBox
                   fadeIn={{ startAt: 0.0, endAt: 0.1 }}
                   fadeOut={{ startAt: 0.15, endAt: 0.2 }}
-                  currentPercent={inkVideoCurrentProgress}
+                  currentProgress={inkVideoCurrentProgress}
                 >
                   <AnimationText>
                     완전히 새로워진
@@ -218,7 +222,7 @@ const Home = () => {
                 <AnimationBox
                   fadeIn={{ startAt: 0.2, endAt: 0.3 }}
                   fadeOut={{ startAt: 0.35, endAt: 0.4 }}
-                  currentPercent={inkVideoCurrentProgress}
+                  currentProgress={inkVideoCurrentProgress}
                 >
                   <AnimationText>
                     그 누구도 생각지 못한
@@ -229,14 +233,14 @@ const Home = () => {
                 <AnimationBox
                   fadeIn={{ startAt: 0.4, endAt: 0.5 }}
                   fadeOut={{ startAt: 0.55, endAt: 0.6 }}
-                  currentPercent={inkVideoCurrentProgress}
+                  currentProgress={inkVideoCurrentProgress}
                 >
                   <AnimationText>열정으로 가득찬 이곳</AnimationText>
                 </AnimationBox>
                 <AnimationBox
                   fadeIn={{ startAt: 0.6, endAt: 0.7 }}
                   fadeOut={{ startAt: 0.75, endAt: 0.8 }}
-                  currentPercent={inkVideoCurrentProgress}
+                  currentProgress={inkVideoCurrentProgress}
                 >
                   <AnimationText>
                     아주대학교에서
