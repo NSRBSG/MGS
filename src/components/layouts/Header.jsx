@@ -12,9 +12,9 @@ const Container = styled.header`
   justify-content: center;
   width: 100%;
   height: 3.25rem;
-  background-color: white;
-  opacity: 0.8;
-  box-shadow: 0.1rem 0.2rem 0.3rem gray;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: saturate(180%) blur(15px);
+  box-shadow: 0.1rem 0.2rem 0.3rem black;
 `;
 
 const Wrapper = styled.div`
@@ -29,7 +29,6 @@ const Wrapper = styled.div`
 
 const Content = styled.span`
   height: 100%;
-  color: #444444;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,7 +54,7 @@ const Header = () => {
         >
           <Content>
             <Image height="100%" src={Symbol} alt="logo" />
-            <Text fontFamily="en" fontSize={1.5} fontWeight="800">
+            <Text fontFamily="en" fontSize={1.5} fontWeight="800" color="white">
               NSRBSG
             </Text>
           </Content>
@@ -67,7 +66,7 @@ const Header = () => {
           }}
         >
           <Content>
-            <Text fontFamily="en" fontWeight="800">
+            <Text fontFamily="en" fontWeight="800" color="white">
               STORY
             </Text>
           </Content>

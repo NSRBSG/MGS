@@ -180,21 +180,49 @@ const Home = () => {
       0,
       0
     );
-
+  console.log(videoShowingProgress);
   useEffect(() => {
-    const onScrollEvent = () => {
+    const acc = 0.2;
+
+    let rafId;
+    let scrolled = false;
+    let delayedTopOffset = stickyContentRef.current.offsetTop;
+    let delayedYOffset = stickyContentRef.current.getBoundingClientRect().y;
+
+    const loop = () => {
+      delayedTopOffset =
+        delayedTopOffset +
+        (stickyContentRef.current.offsetTop - delayedTopOffset) * acc;
       setVideoCurrentProgress(
-        stickyContentRef.current.offsetTop /
-          (window.innerHeight * ScrollContainerHeight)
+        delayedTopOffset / (window.innerHeight * ScrollContainerHeight)
       );
 
-      const { y } = stickyContentRef.current.getBoundingClientRect();
-      const offset = Math.round(window.innerHeight * 0.8);
+      delayedYOffset =
+        delayedYOffset +
+        (stickyContentRef.current.getBoundingClientRect().y - delayedYOffset) *
+          acc;
+      const animationYStart = Math.round(window.innerHeight * 0.8);
 
-      if (y >= 0 && y <= offset) {
-        setVideoShowingProgress(1 - y / offset);
-      } else {
-        setVideoShowingProgress(0);
+      setVideoShowingProgress(
+        delayedYOffset <= animationYStart
+          ? delayedYOffset >= 0
+            ? 1 - delayedYOffset / animationYStart
+            : 1
+          : 0
+      );
+
+      rafId = requestAnimationFrame(loop);
+
+      if (Math.abs(stickyContentRef.current.offsetTop - delayedTopOffset) < 1) {
+        cancelAnimationFrame(rafId);
+        scrolled = false;
+      }
+    };
+
+    const onScrollEvent = () => {
+      if (!scrolled) {
+        rafId = requestAnimationFrame(loop);
+        scrolled = true;
       }
     };
 
