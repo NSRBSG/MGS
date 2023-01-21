@@ -132,17 +132,26 @@ const AnimationText = styled.p`
   font-weight: 800;
   font-family: NanumGothic;
   color: ${(props) => props.color};
+  text-shadow: 0.25rem 0.25rem 0.25rem black;
 
   @media (min-width: 1024px) {
     font-size: 5vw;
   }
 `;
 
+const AnimationBackgroundImageBox = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+
 const AnimationBackgroundImage = styled.img`
   position: absolute;
-  top: ${(props) => props.top};
   width: ${(props) => props.width};
-  height: 100%;
+  transform: ${(props) => props.transform};
   object-fit: ${(props) => props.objectFit};
 `;
 
@@ -181,7 +190,7 @@ const Home = () => {
       0,
       0
     );
-  console.log(videoShowingProgress);
+
   useEffect(() => {
     const acc = 0.2;
 
@@ -272,11 +281,6 @@ const Home = () => {
             }
           >
             <ScrollStickyContent ref={stickyContentRef}>
-              <AnimationBackgroundImage
-                width="80%"
-                objectFit="contain"
-                src={require('../lib/assets/images/laptop.jpg')}
-              />
               <ScrollLockupContainer
                 currentProgress={
                   videoCurrentProgress >= 0.8
@@ -284,16 +288,26 @@ const Home = () => {
                     : 100
                 }
               >
-                <AnimationBackgroundImage
-                  width="90%"
-                  objectFit="contain"
-                  src={require('../lib/assets/images/background.jpg')}
-                />
+                <AnimationBackgroundImageBox>
+                  <AnimationBackgroundImage
+                    width="75%"
+                    objectFit="contain"
+                    src={require('../lib/assets/images/laptop.jpg')}
+                    alt="BackGroundImage"
+                  />
+                  <AnimationBackgroundImage
+                    width="60%"
+                    objectFit="contain"
+                    transform="translateY(-5%)"
+                    src={require('../lib/assets/images/background.jpg')}
+                    alt="BackGroundImage"
+                  />
+                </AnimationBackgroundImageBox>
                 <AnimationImage
                   ref={inkVideoRef}
                   width="1920"
                   height="1080"
-                  blend={{ startAt: 0.5, endAt: 0.7 }}
+                  blend={{ startAt: 0.5, endAt: 0.6 }}
                   currentProgress={videoCurrentProgress}
                 >
                   현재 웹 브라우저를 지원하지 않습니다.
@@ -349,8 +363,8 @@ const Home = () => {
                   </AnimationText>
                 </AnimationBox>
                 <AnimationBox
-                  fadeIn={{ startAt: 0.6, endAt: 0.7 }}
-                  fadeOut={{ startAt: 0.75, endAt: 0.8 }}
+                  fadeIn={{ startAt: 0.55, endAt: 0.6 }}
+                  fadeOut={{ startAt: 0.65, endAt: 0.7 }}
                   currentProgress={videoCurrentProgress}
                 >
                   <AnimationText color="#c5c5c5">
