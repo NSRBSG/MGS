@@ -1,8 +1,10 @@
 import { createHashRouter } from 'react-router-dom';
 import Error from './Error';
 import Layout from '../components/layouts/Layout';
-import Home from './Home';
 import Story from './Story';
+import { lazy } from 'react';
+
+const Home = lazy(() => import('./Home'));
 
 const router = createHashRouter([
   {
