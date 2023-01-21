@@ -126,6 +126,7 @@ const AnimationFocusBox = styled.div.attrs((props) => ({
 `;
 
 const AnimationText = styled.p`
+  line-height: normal;
   text-align: center;
   font-size: 2rem;
   font-weight: 800;
@@ -133,7 +134,7 @@ const AnimationText = styled.p`
   color: ${(props) => props.color};
 
   @media (min-width: 1024px) {
-    font-size: 7vw;
+    font-size: 5vw;
   }
 `;
 
