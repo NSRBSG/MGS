@@ -114,12 +114,7 @@ const CuteMouse = () => {
 
   return (
     <Container x={targetXY[0]} y={targetXY[1]}>
-      <svg
-        id="Layer_1"
-        data-name="Layer 1"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 327 291.84"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 327 291.84">
         <defs>
           <radialGradient id="gradient">
             <stop offset="0%" stopColor="black" />

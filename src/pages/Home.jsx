@@ -91,7 +91,7 @@ const AnimationBox = styled.div.attrs((props) => ({
   height: 100%;
 `;
 
-const AnimationImage = styled.canvas.attrs((props) => ({
+const AnimationBlend = styled.div.attrs((props) => ({
   style: {
     transform: `translateY(${
       props.currentProgress >= props.blend.startAt
@@ -104,6 +104,16 @@ const AnimationImage = styled.canvas.attrs((props) => ({
     }%)`,
   },
 }))`
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+
+const AnimationImage = styled.canvas`
   position: absolute;
   top: 0;
   width: 100%;
@@ -150,9 +160,9 @@ const AnimationBackgroundImageBox = styled.div`
 
 const AnimationBackgroundImage = styled.img`
   position: absolute;
-  width: ${(props) => props.width};
-  transform: ${(props) => props.transform};
-  object-fit: ${(props) => props.objectFit};
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const BannerText = styled.p`
@@ -175,21 +185,9 @@ const Home = () => {
   const ScrollContainerHeight = 20;
   const [videoCurrentProgress, setVideoCurrentProgress] = useState(0);
   const [videoShowingProgress, setVideoShowingProgress] = useState(0);
-  const [inkVideo, setInkVideo] = useState([]);
+  const [openVideo, setOpenVideo] = useState([]);
   const stickyContentRef = useRef(null);
-  const inkVideoRef = useRef(null);
-
-  inkVideoRef.current
-    ?.getContext('2d')
-    .drawImage(
-      inkVideo[
-        Math.round(
-          301 * (videoCurrentProgress * 2 > 1 ? 1 : videoCurrentProgress * 2)
-        )
-      ],
-      0,
-      0
-    );
+  const openVideoRef = useRef(null);
 
   useEffect(() => {
     const acc = 0.2;
@@ -236,7 +234,7 @@ const Home = () => {
       }
     };
 
-    const loadInkImages = () => {
+    const loadOpenImages = () => {
       const images = [];
 
       const currentProgress =
@@ -244,22 +242,39 @@ const Home = () => {
         Math.round(window.innerHeight * ScrollContainerHeight);
 
       const inputImage =
-        Math.round(301 * (currentProgress * 2 > 1 ? 1 : currentProgress * 2)) +
+        Math.round(385 * (currentProgress * 2 > 1 ? 1 : currentProgress * 2)) +
         1;
 
-      for (let i = 1; i <= 302; i++) {
+      for (let i = 1; i <= 386; i++) {
         const image = new Image();
-        image.src = require(`../lib/assets/videos/inkVideo/${i}.jpg`);
+        image.src = require(`../lib/assets/videos/openVideo/${i}.jpg`);
+
         if (i === inputImage)
           image.onload = () => {
-            inkVideoRef.current?.getContext('2d').drawImage(image, 0, 0);
+            const openImageContext = openVideoRef.current.getContext('2d');
+
+            openImageContext.drawImage(image, 0, 0);
+
+            const imageData = openImageContext.getImageData(0, 0, 1920, 1080);
+
+            for (let i = 0; i < imageData.data.length; i += 4) {
+              const r = imageData.data[i];
+              const g = imageData.data[i + 1];
+              const b = imageData.data[i + 2];
+
+              if (g > r + b) {
+                imageData.data[i + 3] = 0;
+              }
+            }
+
+            openImageContext.putImageData(imageData, 0, 0);
           };
         images.push(image);
       }
-      setInkVideo(images);
+      setOpenVideo(images);
     };
 
-    loadInkImages();
+    loadOpenImages();
 
     window.addEventListener('scroll', onScrollEvent);
 
@@ -267,6 +282,37 @@ const Home = () => {
       window.removeEventListener('scroll', onScrollEvent);
     };
   }, []);
+
+  const getOpenImage = () => {
+    if (openVideoRef.current) {
+      const openImageContext = openVideoRef.current.getContext('2d', {
+        willReadFrequently: true,
+      });
+      openImageContext.drawImage(
+        openVideo[
+          Math.round(
+            385 * (videoCurrentProgress * 2 > 1 ? 1 : videoCurrentProgress * 2)
+          )
+        ],
+        0,
+        0
+      );
+
+      const imageData = openImageContext.getImageData(0, 0, 1920, 1080);
+
+      for (let i = 0; i < imageData.data.length; i += 4) {
+        const r = imageData.data[i];
+        const g = imageData.data[i + 1];
+        const b = imageData.data[i + 2];
+
+        if (g > r + b) {
+          imageData.data[i + 3] = 0;
+        }
+      }
+
+      openImageContext.putImageData(imageData, 0, 0);
+    }
+  };
 
   return (
     <Container>
@@ -290,28 +336,25 @@ const Home = () => {
               >
                 <AnimationBackgroundImageBox>
                   <AnimationBackgroundImage
-                    width="75%"
-                    objectFit="contain"
-                    src={require('../lib/assets/images/laptop.jpg')}
-                    alt="BackGroundImage"
-                  />
-                  <AnimationBackgroundImage
-                    width="60%"
-                    objectFit="contain"
-                    transform="translateY(-5%)"
-                    src={require('../lib/assets/images/background.jpg')}
+                    src={require('../lib/assets/images/sunflowers.jpg')}
                     alt="BackGroundImage"
                   />
                 </AnimationBackgroundImageBox>
-                <AnimationImage
-                  ref={inkVideoRef}
-                  width="1920"
-                  height="1080"
-                  blend={{ startAt: 0.5, endAt: 0.6 }}
+                <AnimationBlend
                   currentProgress={videoCurrentProgress}
+                  blend={{ startAt: 0.5, endAt: 0.6 }}
                 >
-                  현재 웹 브라우저를 지원하지 않습니다.
-                </AnimationImage>
+                  <AnimationBackgroundImage
+                    src={require('../lib/assets/images/background.jpg')}
+                    alt="BackGroundImage"
+                  />
+                  <AnimationImage
+                    ref={openVideoRef}
+                    width="1920"
+                    height="1080"
+                  ></AnimationImage>
+                  {openVideoRef.current && getOpenImage()}
+                </AnimationBlend>
                 <AnimationFocusBox
                   left="0"
                   currentProgress={videoShowingProgress}
@@ -367,9 +410,7 @@ const Home = () => {
                   fadeOut={{ startAt: 0.65, endAt: 0.7 }}
                   currentProgress={videoCurrentProgress}
                 >
-                  <AnimationText color="#c5c5c5">
-                    지금 바로 참여하라!
-                  </AnimationText>
+                  <AnimationText color="#c5c5c5">Thank you!</AnimationText>
                 </AnimationBox>
               </ScrollLockupContainer>
             </ScrollStickyContent>
