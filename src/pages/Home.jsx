@@ -173,11 +173,48 @@ const BannerText = styled.p`
   justify-content: center;
   font-size: 2rem;
   font-weight: 800;
-  font-family: NanumGothicCoding;
+  font-family: NanumGothic;
   color: white;
+  text-align: center;
+  line-height: 1.5em;
 
   @media (min-width: 1024px) {
     font-size: 7vw;
+  }
+`;
+
+const ContentDiv = styled.div`
+  width: 100%;
+  min-height: calc(100vh - 3.25rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const ContentBanner = styled.p`
+  width: 80%;
+  color: white;
+  line-height: 1em;
+  font-size: 4rem;
+  font-weight: 800;
+  font-family: NanumGothic;
+  line-height: 2em;
+  @media (min-width: 1024px) {
+    width: 50%;
+    font-size: 5vw;
+  }
+`;
+
+const ContentText = styled.p`
+  width: 80%;
+  color: white;
+  line-height: 1em;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: NanumGothic;
+  line-height: 1.25em;
+  @media (min-width: 1024px) {
+    width: 50%;
+    font-size: 1.5vw;
   }
 `;
 
@@ -317,7 +354,11 @@ const Home = () => {
   return (
     <Container>
       <Section>
-        <BannerText>NSRBSG</BannerText>
+        <BannerText>
+          모여서 각자
+          <br />
+          소프트웨어하자!
+        </BannerText>
         <ScrollContainer height={ScrollContainerHeight * 100}>
           <ScrollStickyContainer
             currentProgress={
@@ -336,7 +377,7 @@ const Home = () => {
               >
                 <AnimationBackgroundImageBox>
                   <AnimationBackgroundImage
-                    src={require('../lib/assets/images/sunflowers.jpg')}
+                    src={require('../lib/assets/images/student.jpg')}
                     alt="BackGroundImage"
                   />
                 </AnimationBackgroundImageBox>
@@ -345,7 +386,7 @@ const Home = () => {
                   blend={{ startAt: 0.5, endAt: 0.6 }}
                 >
                   <AnimationBackgroundImage
-                    src={require('../lib/assets/images/background.jpg')}
+                    src={require('../lib/assets/images/art.jpg')}
                     alt="BackGroundImage"
                   />
                   <AnimationImage
@@ -369,9 +410,9 @@ const Home = () => {
                   currentProgress={videoCurrentProgress}
                 >
                   <AnimationText color="white">
-                    완전히 새로워진
+                    SW중심대학사업
                     <br />
-                    모각소
+                    새로운 프로젝트
                   </AnimationText>
                 </AnimationBox>
                 <AnimationBox
@@ -380,9 +421,9 @@ const Home = () => {
                   currentProgress={videoCurrentProgress}
                 >
                   <AnimationText color="white">
-                    그 누구도 생각지 못한
+                    스스로 학습하며
                     <br />
-                    아름다움
+                    성장하는 모험 '모각소'
                   </AnimationText>
                 </AnimationBox>
                 <AnimationBox
@@ -410,7 +451,9 @@ const Home = () => {
                   fadeOut={{ startAt: 0.65, endAt: 0.7 }}
                   currentProgress={videoCurrentProgress}
                 >
-                  <AnimationText color="#c5c5c5">Thank you!</AnimationText>
+                  <AnimationText color="white">
+                    지금 바로 신청하세요!
+                  </AnimationText>
                 </AnimationBox>
               </ScrollLockupContainer>
             </ScrollStickyContent>
@@ -418,7 +461,18 @@ const Home = () => {
         </ScrollContainer>
       </Section>
       <Section>
-        <BannerText>다음은 뭐하지</BannerText>
+        <ContentDiv>
+          <ContentBanner>모각소란</ContentBanner>
+          <ContentText color="white">
+            아주대학교 SW중심대학사업의 일환으로, SW전공 및 융합생의
+            자기주도적학습 역량을 강화하고 프로그래밍 문화를 형성하기 위한
+            프로그램입니다.
+            <br />
+            아주대학교 소프트웨어융합대학과 SW중심대학사업은 우리 학생들이
+            스스로 동기부여하며 주체적인 SW, AI 융합 인재로 성장할 수 있도록
+            적극적으로 지원합니다.
+          </ContentText>
+        </ContentDiv>
       </Section>
     </Container>
   );
