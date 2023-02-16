@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/blog/static/js/main.2b9f02ff.js",
-    "static/js/415.dac860ec.chunk.js": "/blog/static/js/415.dac860ec.chunk.js",
+    "main.js": "/blog/static/js/main.3da0bc53.js",
+    "static/js/415.031ab899.chunk.js": "/blog/static/js/415.031ab899.chunk.js",
     "static/media/NanumGothic-Regular.ttf": "/blog/static/media/NanumGothic-Regular.6c84540de7730f833d6c.ttf",
     "static/media/NanumGothic-Bold.ttf": "/blog/static/media/NanumGothic-Bold.6499af72b1d61fe8269d.ttf",
     "static/media/NanumGothic-ExtraBold.ttf": "/blog/static/media/NanumGothic-ExtraBold.d574713406e9230ba246.ttf",
     "static/media/NanumGothicCoding-Regular.ttf": "/blog/static/media/NanumGothicCoding-Regular.9fd9323b064549a4f804.ttf",
     "static/media/NanumGothicCoding-Bold.ttf": "/blog/static/media/NanumGothicCoding-Bold.547bf7903b7143c1d63b.ttf",
-    "static/media/sunflowers.jpg": "/blog/static/media/sunflowers.b8b77882968528a625d0.jpg",
-    "static/media/background.jpg": "/blog/static/media/background.71a96e88470bbed627e5.jpg",
+    "static/media/art.jpg": "/blog/static/media/art.7135fe5099e568b2b66a.jpg",
+    "static/media/student.jpg": "/blog/static/media/student.a2713f3bdc6620da2328.jpg",
     "static/media/3.jpg": "/blog/static/media/3.67a67faf4f5515c1108b.jpg",
     "static/media/4.jpg": "/blog/static/media/4.67a67faf4f5515c1108b.jpg",
     "static/media/5.jpg": "/blog/static/media/5.77aa230205a19633dcdc.jpg",
@@ -407,10 +407,10 @@
     "static/media/385.jpg": "/blog/static/media/385.03542a881f066366270a.jpg",
     "static/media/386.jpg": "/blog/static/media/386.03542a881f066366270a.jpg",
     "index.html": "/blog/index.html",
-    "main.2b9f02ff.js.map": "/blog/static/js/main.2b9f02ff.js.map",
-    "415.dac860ec.chunk.js.map": "/blog/static/js/415.dac860ec.chunk.js.map"
+    "main.3da0bc53.js.map": "/blog/static/js/main.3da0bc53.js.map",
+    "415.031ab899.chunk.js.map": "/blog/static/js/415.031ab899.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.2b9f02ff.js"
+    "static/js/main.3da0bc53.js"
   ]
 }
