@@ -1,3 +1,7 @@
+# 참고 블로그 주소
+
+- https://nsrbsg.github.io/promotion-university/
+
 # 2023.01.10 오늘 할 일
 
 - 개인 블로그 스택 정리
@@ -64,7 +68,3 @@
 - 블로그 동영상 및 이미지 수정 완료
 - 블로그 코드 리팩토링 완료
 - 블로그 -> 모각소 소개페이지 완성
-
-# 참고 블로그 주소
-
-- https://nsrbsg.github.io/blog/
